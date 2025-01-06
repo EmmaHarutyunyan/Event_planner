@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="bookings-container">
+    <h2>Your Bookings</h2>
+
+    {% if bookings %}
+        <div class="bookings-list">
+            {% for booking in bookings %}
+                <div class="booking-card">
+                    {% if booking.category.image %}
+                        <img src="{{ booking.category.image.url }}" alt="{{ booking.category.name }}">
+                    {% endif %}
+
+                    <h3><i class="icon fa fa-calendar"></i>{{ booking.category.name }}</h3>
+                    {% if booking.event %}
+                        <p><i class="icon fa fa-star"></i><strong>Event:</strong> {{ booking.event.title }}</p>
+                    {% endif %}
+                    <p><i class="icon fa fa-calendar-day"></i><strong>Date:</strong> {{ booking.date }}</p>
+                    <p><i class="icon fa fa-clock"></i><strong>Time:</strong> {{ booking.time }}</p>
+                    <p><i class="icon fa fa-check-circle"></i><strong>Status:</strong> {{ booking.status }}</p>
+
+                    {% if booking.category.packages.all %}
+                        <p><i class="icon fa fa-box"></i><strong>Package:</strong> {{ booking.category.packages.first.name }}</p>
+                        <p><i class="icon fa fa-dollar-sign"></i><strong>Price:</strong> ${{ booking.category.packages.first.price }}</p>
+                        <p><i class="icon fa fa-info-circle"></i><strong>Description:</strong> {{ booking.category.packages.first.description }}</p>
+                        <ul>
+                            <strong><i class="icon fa fa-gift"></i>Benefits:</strong>
+                            {% for benefit in booking.category.packages.first.benefits.splitlines %}
+                                <li><i class="icon fa fa-check"></i>{{ benefit }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No bookings found.</p>
+    {% endif %}
+</section>
+{% endblock %}

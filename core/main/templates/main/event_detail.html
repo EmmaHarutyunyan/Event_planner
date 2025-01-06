@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/event_detail.css' %}">
+
+<body class="event-detail-page">
+    <section id="event-detail-section" class="event-detail-section">
+        <div class="event-detail-container">
+            <h2>Event: {{ event.title }}</h2>
+            <div class="event-detail-header">
+                <p><strong>Category:</strong> {{ event.category.name }}</p>
+                <p><strong>Date:</strong> {{ event.date }}</p>
+                <p><strong>Time:</strong> {{ event.time }}</p>
+            </div>
+
+            <div class="booking-details">
+                <h3>Booking Details</h3>
+                {% if bookings %}
+                    <table class="event-booking-table">
+                        <thead>
+                            <tr>
+                                <th>Event Category</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Package</th>
+                                <th>Details</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.category.name }}</td>
+                                    <td>{{ booking.date }}</td>
+                                    <td>{{ booking.time }}</td>
+                                    <td>{{ booking.status }}</td>
+                                    <td>{{ booking.package.name }}</td>
+                                    <td>
+                                        <ul>
+                                            <li><strong>Description:</strong> {{ booking.package.description }}</li>
+                                            <li><strong>Price:</strong> ${{ booking.package.price }}</li>
+                                            <li><strong>Benefits:</strong>
+                                                <ul>
+                                                    {% for benefit in booking.package.benefits.splitlines %}
+                                                        <li>{{ benefit }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>{{ booking.created_at }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No confirmed bookings for this event yet.</p>
+                {% endif %}
+            </div>
+
+            <div class="event-description">
+                <h3>Event Details</h3>
+                <p>{{ event.description }}</p>
+            </div>
+
+            <div class="packages-section">
+                <h3>Available Packages</h3>
+                <div class="packages-list">
+                    {% for package in packages %}
+                        <div class="package-item">
+                            <h4>{{ package.name }} - ${{ package.price }}</h4>
+                            <p><strong>Description:</strong> {{ package.description }}</p>
+                            <p><strong>Benefits:</strong></p>
+                            <ul>
+                                {% for benefit in package.benefits.splitlines %}
+                                    <li>{{ benefit }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p><strong>Availability:</strong> {% if package.available %} Available {% else %} Not Available {% endif %}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="booking-form">
+                <h3>Make a Booking</h3>
+                <form method="POST" action="{% url 'event_detail' event.id %}">
+                    {% csrf_token %}
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" required>
+
+                    <label for="time">Time:</label>
+                    <input type="time" name="time" required>
+
+                    <label for="package">Package:</label>
+                    <select name="package" required>
+                        {% for package in packages %}
+                            <option value="{{ package.id }}">{{ package.name }} - ${{ package.price }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button type="submit">Book Event</button>
+                </form>
+            </div>
+        </div>
+        {% for invitation in invitations %}
+            <div class="invitation-container {{ invitation.type|lower }}" data-type="{{ invitation.type }}">
+            <h1>{{ invitation.title }}</h1>
+            <p>{{ invitation.description }}</p>
+            </div>
+        {% endfor %}
+    </section>
+</body>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="search-results-container">
+        <h1>Search Results</h1>
+
+        {% if query %}
+            <p>Showing results for: <strong>{{ query }}</strong></p>
+        {% endif %}
+
+        {% if events %}
+            <div class="events-list">
+                {% for event in events %}
+                    <div class="event-card">
+                        <div class="event-card-img">
+                            <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                        </div>
+                        <div class="event-card-content">
+                            <h3>{{ event.title }}</h3>
+                            <p class="event-description">{{ event.description }}</p>
+                            <p><strong>Date:</strong> {{ event.date }} at {{ event.time }}</p>
+                            <p><strong>Location:</strong> {{ event.location }}</p>
+                            <p><strong>Price:</strong> ${{ event.ticket_price }}</p>
+                            <a href="{% url 'event_detail' event.id %}" class="view-details-btn">View Event Details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No events found matching your search.</p>
+        {% endif %}
+    </div>
+{% endblock %}

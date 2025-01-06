@@ -1,0 +1,72 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/user_dashboard.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<section id="user-dashboard" class="user-dashboard">
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>Welcome Back, <span>{{ user.first_name }} {{ user.last_name }}</span>!</h1>
+                <p class="subtitle">Here's an overview of your account and bookings.</p>
+            </div>
+            <a href="{% url 'index' %}" class="back-btn">&#8592; Go Back</a>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <h3>Confirmed Bookings</h3>
+                    <img src="https://img.icons8.com/ios/50/000000/booking.png" alt="Bookings" />
+                </div>
+                <p class="stat-count">{{ bookings.count }}</p>
+                <a href="{% url 'user_bookings' %}" class="btn red-btn">View Bookings</a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <h3>Your Profile</h3>
+                    <img src="https://img.icons8.com/ios/50/000000/user-male.png" alt="User Profile" />
+                </div>
+                <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+                <p>Email: {{ user.email }}</p>
+                <a href="{% url 'profile_edit' %}" class="btn red-btn">Edit Profile</a>
+            </div>
+        </div>
+
+        <div class="user-bookings">
+            <h3>Your Recent Bookings</h3>
+            <div class="booking-table-container">
+                <table id="booking-table" class="booking-table">
+                    <thead>
+                        <tr>
+                            <th>Event Category</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if bookings %}
+                            {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.category.name }}</td>
+                                    <td>{{ booking.date }}</td>
+                                    <td>{{ booking.time }}</td>
+                                    <td class="status {{ booking.status|lower }}">{{ booking.status }}</td>
+                                    <td>{{ booking.created_at }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5">You have no confirmed bookings yet.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+    </div>
+</section>

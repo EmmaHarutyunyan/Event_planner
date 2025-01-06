@@ -1,0 +1,169 @@
+body.event-detail-page {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.event-detail-container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-detail-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.event-detail-header {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.event-detail-header p {
+    margin: 5px 0;
+}
+
+.event-detail-header strong {
+    font-weight: bold;
+}
+
+.event-booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.event-booking-table th,
+.event-booking-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.event-booking-table th {
+    background-color: #f8f8f8;
+}
+
+.event-description {
+    margin: 20px 0;
+    font-size: 1rem;
+}
+
+.event-description h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.packages-section {
+    margin: 20px 0;
+}
+
+.packages-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.packages-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.package-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.package-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.package-item ul {
+    margin: 10px 0;
+}
+
+.package-item li {
+    margin: 5px 0;
+}
+
+.package-item .availability {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.booking-form {
+    margin-top: 30px;
+}
+
+.booking-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.booking-form label {
+    font-size: 1rem;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.booking-form input,
+.booking-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.booking-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.booking-form button:hover {
+    background-color: #45a049;
+}
+
+.invitation-container {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.invitation-container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.invitation-container p {
+    font-size: 1rem;
+}
+
+.invitation-container.wedding {
+    background-color: #fbe4e4;
+}
+
+.invitation-container.birthday {
+    background-color: #f1f7e2;
+}
+
+.invitation-container.corporate {
+    background-color: #e3f0fc;
+}
+

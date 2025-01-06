@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="event-package">
+    <div class="container">
+        <div class="package-header">
+            <div class="image-wrapper">
+                <img src="{{ package.image.url }}" alt="{{ package.name }}" class="package-img">
+            </div>
+            <div class="details-wrapper">
+                <h1 class="package-title">{{ package.name }}</h1>
+                <p class="price-tag">${{ package.price }}</p>
+                <p class="package-description">{{ package.description }}</p>
+                <h3 class="benefits-title">Exclusive Benefits</h3>
+                <ul class="benefits-list">
+                    {% if package.benefits %}
+                        <li class="benefit-item">
+                            <i class="fas fa-check-circle benefit-icon"></i> {{ package.benefits }}
+                        </li>
+                    {% else %}
+                        <p class="no-benefits">No benefits available for this package.</p>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="action-section">
+            <h2 class="cta-title">Let's Make It Happen!</h2>
+            <p class="cta-subtext">Your unforgettable event starts here. Click below to get started with booking.</p>
+            <a href="{% url 'index'%}" class="cta-btn">Book Now</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

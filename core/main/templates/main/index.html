@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'js/script.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_red.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<section class="welcome animate-slow-fade-in-up" data-animate="fade-in-up">
+    <div class="background"></div>
+    <div class="welcome-content">
+        <h1 class="animate-slow-slide-in-left">Welcome to Event Planner</h1>
+        <p class="animate-slow-slide-up-right">Plan memorable events that create lasting impressions.</p>
+        <div class="cta-buttons animate-slow-bounce-up">
+            <a href="#browse-events" class="btn-primary">Browse Events</a>
+            <a href="#booking" class="btn-secondary">Get Started</a>
+        </div>
+    </div>
+</section>
+
+<section id="browse-events" class="categories animate-slow-fade-in-down" data-animate="fade-in-down">
+    <h2 class="animate-slow-zoom-in">Explore Events by Category</h2>
+    <div class="category-list animate-slow-slide-right-up">
+        {% for category in categories %}
+            <div class="category-card animate-slow-hover-up">
+                <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                <h3>{{ category.name }}</h3>
+                <a href="{% url 'category_events' category.id %}" class="btn-secondary">See Events</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="services animate-slow-fade-in-up" data-animate="fade-in-up">
+    <div class="container">
+        <h2 class="animate-slow-rotate-down">Our Services</h2>
+        <div class="service-cards animate-slow-slide-left">
+            <div class="service-card animate-slow-flip-vertical">
+                <h3>Weddings</h3>
+                <p>Make your special day unforgettable with expert planning.</p>
+            </div>
+            <div class="service-card animate-slow-flip-vertical">
+                <h3>Corporate Events</h3>
+                <p>Bring your team together with events tailored for business success.</p>
+            </div>
+            <div class="service-card animate-slow-flip-vertical">
+                <h3>Private Parties</h3>
+                <p>Celebrate in style with events designed to impress your guests.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="countdown animate-slow-pulse" data-animate="fade-in">
+    <h2>Next Big Event Starts In:</h2>
+    <div id="timer" class="animate-slow-countdown">
+        <span id="days">00</span> Days 
+        <span id="hours">00</span> Hours 
+        <span id="minutes">00</span> Minutes 
+        <span id="seconds">00</span> Seconds
+    </div>
+</section>
+
+<section id="booking" class="booking animate-slow-slide-up-right" data-animate="fade-up-right">
+    <div class="booking-container">
+        <h2 class="animate-slow-fade-in">Book Your Event</h2>
+        <p>Fill in the details below to reserve your spot for an upcoming event.</p>
+        
+        <form id="booking-form" method="post" class="animate-slow-scale-up">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Event Date</label>
+                <input type="text" id="date" name="date" placeholder="Select Date" readonly required>
+            </div>
+            <div class="form-group">
+                <label for="time">Preferred Time</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Select Category</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="package">Select Package</label>
+                <select id="package" name="package" required>
+                    <option value="" disabled selected>Select Package</option>
+                    {% for package in packages %}
+                    <option value="{{ package.id }}">{{ package.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn-primary animate-slow-pop">Book Now</button>
+        </form>
+    </div>
+</section>
+
+<section id="my-booking-history" class="booking-history animate-slow-fade-in" data-animate="fade-in">
+    <h2 class="animate-slow-zoom-in">Your Booking History</h2>
+    <div class="booking-history-list">
+        {% for category in categories %}
+            <div class="booking-history-item animate-slow-slide-left">
+                <div class="booking-history-content">
+                    <h3>{{ category.name }}</h3>
+                    <p class="booking-description">Explore all your previous bookings and upcoming events in this category.</p>
+                    <a href="{% url 'category_bookings' category.id %}" class="btn-main">View All Bookings</a>
+                </div>
+                <div class="booking-history-image">
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="cta animate-slow-bounce-up" data-animate="bounce-up">
+    <h2>Ready to Plan Your Next Event?</h2>
+    <p>Let us help you organize unforgettable experiences. Join now to get started!</p>
+    <a href="{% url 'signup' %}" class="btn-primary">Sign Up Today</a>
+</section>
+
+{% endblock %}
