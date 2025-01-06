@@ -1,4 +1,4 @@
-# Event Planner Project
+# Event Planner
 
 Event Planner is a Django-based web application designed for event management. The platform allows users to plan and book events, manage their bookings, and view event categories such as weddings, corporate events, and private parties. Users can explore different event packages, make reservations, and track their booking history. The application features user authentication, a personalized dashboard, and a responsive design for an enhanced user experience.
 
